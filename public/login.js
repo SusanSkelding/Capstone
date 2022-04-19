@@ -1,3 +1,7 @@
+
+
+
+
 function Login(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');    
@@ -43,8 +47,29 @@ function LoginForm(props){
             console.log('err:', text);
         }
     });
+
+    
   }
 
+  function checkCredentials() {
+
+    fetch(`/account/checkUser/${email}/${password}`)
+    .then(response => response.text())
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            props.setStatus(text);
+            props.setShow(false);
+            setBalance(user.balance);
+            console.log('JSON:', data);
+        } catch(err) {
+            props.setStatus(text)
+            console.log('err:', text);
+        }
+    });
+  }
+
+  
 
   return (<>
 
@@ -62,7 +87,7 @@ function LoginForm(props){
       value={password} 
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
 
-    <button type="submit" className="btn btn-light" onClick={handle}>Login</button>
+    <button type="submit" className="btn btn-light" onClick={checkCredentials}>Login</button>
    
   </>);
 }
