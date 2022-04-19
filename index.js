@@ -102,7 +102,7 @@ app.get('/account/checkUser/:email/:password', function (req, res) {
     
             if ( user )
             {
-                res.send("Welcome " + user.name  + " <a href=\'/logout'>click to logout</a>");
+                res.send("Welcome " + user.name );
             }
             
             //res.send(user);

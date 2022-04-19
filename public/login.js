@@ -3,14 +3,20 @@ function Login(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');    
   const [name, setName] = React.useState("");
+
   return (
     <Card
-      bgcolor="secondary"
+      bgcolor="success"
+      txtcolor="white"
       header="Login"
       status={status}
       body={show ? 
+        
         <LoginForm setShow={setShow} setStatus={setStatus}/> :
-        <LoginMsg setShow={setShow} setStatus={setStatus}/>}
+        <checkCredentials setShow={setShow} setStatus={setStatus}/>
+        
+      
+      }
     />
   ) 
 }
@@ -64,8 +70,15 @@ function LoginForm(props){
             console.log('err:', text);
         }
     });
-  }
 
+
+
+  }
+  function clearForm() {
+    setEmail('');
+    setPassword('');
+    setShow(true);
+  }
   
 
   return (<>
@@ -84,7 +97,7 @@ function LoginForm(props){
       value={password} 
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
 
-    <button type="submit" className="btn btn-light" onClick={checkCredentials}>Login</button>
+    <button type="submit" className="btn btn-light"  onClick={checkCredentials}>Login</button>
     
    
   </>);
