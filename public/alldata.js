@@ -14,7 +14,7 @@ function AllData(){
     }, []);
 
     return (<>
-        <h5>All Data in Store:</h5>
+        <h5>All Data:</h5>
         {data}
     </>);
 }
