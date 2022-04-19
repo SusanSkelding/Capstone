@@ -1,7 +1,4 @@
 
-
-
-
 function Login(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');    
@@ -88,6 +85,7 @@ function LoginForm(props){
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
 
     <button type="submit" className="btn btn-light" onClick={checkCredentials}>Login</button>
+    
    
   </>);
 }

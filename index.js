@@ -1,5 +1,8 @@
 var express = require('express');
 var app     = express();
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+var session;
 var cors    = require('cors');
 var dal     = require('./dal.js');
 const e = require('express');
@@ -7,6 +10,18 @@ const e = require('express');
 // used to serve static files from public directory
 app.use(express.static('public'));
 app.use(cors());
+
+
+const oneDay = 1000 * 60 * 60 * 24;
+
+//session middleware
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+app.use(cookieParser());
 
 // create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
@@ -80,8 +95,17 @@ app.get('/account/checkUser/:email/:password', function (req, res) {
 
     dal.checkUser(req.params.email, req.params.password).
         then((user) => {
+            //session=res.session;
+            //session.username = user.name;
             console.log(user);
-            res.send(user);
+            //session=req.session;
+    
+            if ( user )
+            {
+                res.send("Welcome " + user.name  + " <a href=\'/logout'>click to logout</a>");
+            }
+            
+            //res.send(user);
     });
 });
 

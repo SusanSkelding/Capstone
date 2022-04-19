@@ -49,7 +49,7 @@ function checkUser(email, password){
     return new Promise((resolve, reject) => {    
         const customers = db
             .collection('users')
-            .findOne({email: email},{password: password})
+            .findOne({email: email, password: password})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));    
     })
