@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.4",
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "express-openid-connect": "^2.7.2",
     "express-session": "^1.17.2",
@@ -19,6 +19,13 @@
     "lowdb": "^1.0.0",
     "mongodb": "^3.7.3"
   },
-"devDependencies": {},
-"keywords": []
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SusanSkelding/Capstone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SusanSkelding/Capstone/issues"
+  },
+  "homepage": "https://github.com/SusanSkelding/Capstone#readme"
 }

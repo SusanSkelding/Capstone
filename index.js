@@ -1,8 +1,8 @@
 var express = require('express');
 var app     = express();
-const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
-var session;
+//const cookieParser = require("cookie-parser");
+//const sessions = require('express-session');
+//var session;
 var cors    = require('cors');
 var dal     = require('./dal.js');
 const e = require('express');
@@ -15,13 +15,13 @@ app.use(cors());
 const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
-app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false
-}));
-app.use(cookieParser());
+//app.use(sessions({
+    //secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    //saveUninitialized:true,
+   // cookie: { maxAge: oneDay },
+   // resave: false
+//}));
+//app.use(cookieParser());
 
 // create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
