@@ -5,7 +5,7 @@ function CreateAccount(){
   return (
     <Card
       bgcolor="success"
-      text="white"
+      
       header="Create Account"
       status={status}
       body={show ? 
