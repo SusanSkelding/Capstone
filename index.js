@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 
-const oneDay = 1000 * 60 * 60 * 24;
+//const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
 //app.use(sessions({
