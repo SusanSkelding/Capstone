@@ -3,29 +3,21 @@
   "version": "1.0.0",
   "description": "lowdb sample for 1.125",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "start": "node index.js",
-    "test": "jest"
+    "test": "jest",
+    "start": "node index.js"
   },
   "author": "abel@mit.edu",
   "license": "MIT",
   "dependencies": {
-    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "express-openid-connect": "^2.7.2",
-    "express-session": "^1.17.2",
-    "firebase": "^9.6.11",
+    "express": "^4.16.3",
+    "firebase": "^9.6.10",
     "lowdb": "^1.0.0",
     "mongodb": "^3.7.3"
-  },
-  "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SusanSkelding/Capstone.git"
-  },
-  "bugs": {
-    "url": "https://github.com/SusanSkelding/Capstone/issues"
-  },
-  "homepage": "https://github.com/SusanSkelding/Capstone#readme"
+  }
 }
+
