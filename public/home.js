@@ -1,7 +1,7 @@
 function Home() {
   return (
     <Card
-      bgcolor="success"
+      bgcolor="info"
       txtcolor="white"
       header="Welcome to Cash$tack"
       title={

@@ -1,15 +1,28 @@
-function Withdraw(){
+function Withdraw(props){
   const [show, setShow]     = React.useState(true);
-  const [status, setStatus] = React.useState('');  
+  const [status, setStatus] = React.useState(''); 
+  const [withdraw, setWithdraw] = React.useState(''); 
 
   return (
     <Card
-      bgcolor="success"
-      header="Withdraw"
-      status={status}
-      body={show ? 
-        <WithdrawForm setShow={setShow} setStatus={setStatus}/> :
-        <WithdrawMsg setShow={setShow} setStatus={setStatus}/>}
+    bgcolor="warning"
+		txtcolor="white"
+		header="Withdraw"
+		status={status}
+		body={
+		  show ? (
+      
+        <><img
+          src="withdraw.png"
+          className="card-img-top"
+          alt="Responsive image"
+          width="22%" /><>
+            <WithdrawForm user={props.user} setShow={setShow} setStatus={setStatus} setWithdraw={setWithdraw} /> :
+
+          </></> ):
+      <>  <WithdrawMsg setShow={setShow} setStatus={setStatus}/>
+        
+        </> }
     />
   )
 }
@@ -29,17 +42,19 @@ function WithdrawMsg(props){
 }
 
 function WithdrawForm(props){
-  const [email, setEmail]   = React.useState('');
-  const [amount, setAmount] = React.useState('');
+ // const [email, setEmail]   = React.useState('');
+ const [amount, setWithdraw] = React.useState('');
+  
 
   function handle(){
-    fetch(`/account/update/${email}/-${amount}`)
+    fetch(`/account/update/${props.user.email}/-${amount}`)
     .then(response => response.text())
     .then(text => {
         try {
             const data = JSON.parse(text);
-            props.setStatus(JSON.stringify(data.value));
+            props.setStatus(JSON.stringify(data.amount));
             props.setShow(false);
+            props.setWithdraw(data.amount);
             console.log('JSON:', data);
         } catch(err) {
             props.setStatus('Deposit failed')
@@ -51,24 +66,20 @@ function WithdrawForm(props){
 
   return(<>
 
-    Email<br/>
-    <input type="input" 
-      className="form-control" 
-      placeholder="Enter email" 
-      value={email} 
-      onChange={e => setEmail(e.currentTarget.value)}/><br/>
+    User <br/>
+    <p>{props.user.name}</p>
 
-    Amount<br/>
+   Withdrawal Amount:<br/>
     <input type="number" 
       className="form-control" 
-      placeholder="Enter amount" 
+      placeholder="$0.00" 
       value={amount} 
-      onChange={e => setAmount(e.currentTarget.value)}/><br/>
+      onChange={e => setWithdraw(e.currentTarget.value)}/><br/>
 
     <button type="submit" 
-      className="btn btn-light" 
+      className="btn btn-outline-light"
       onClick={handle}>
-        Withdraw
+      Withdraw
     </button>
 
   </>);

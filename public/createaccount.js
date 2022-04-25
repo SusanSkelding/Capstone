@@ -4,11 +4,19 @@ function CreateAccount(){
 
   return (
     <Card
-      bgcolor="success"
+      bgcolor="primary"
       header="Create Account"
       status={status}
       body={show ? 
-        <CreateForm setShow={setShow}/> : 
+        <><div className="text-left">
+          <img
+            src="coin.svg"
+            className="img-fluid right"
+            alt="Responsive image"
+            width="22%" />
+          <br />
+          <br />
+        </div><CreateForm setShow={setShow} /></> : 
         <CreateMsg setShow={setShow}/>}
     />
   )
@@ -30,15 +38,69 @@ function CreateForm(props){
 
   function handle(){
     console.log(name,email,password);
-    const url = `/account/create/${name}/${email}/${password}`;
+   /* const url = `/account/create/${name}/${email}/${password}`;
+    (async () => {
+        var res  = await fetch(url);
+        var data = await res.json();    
+        console.log(data);        
+    })();*/
+    const auth = firebase.auth();
+    const promise = auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    promise.then(()=> {
+      const url = `/account/create/${name}/${email}/${password}`;
     (async () => {
         var res  = await fetch(url);
         var data = await res.json();    
         console.log(data);        
     })();
+    })
+    promise.catch((e) => console.log(e.message));
     props.setShow(false);
   }    
-
+  function handleGoogle() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        console.log(result);
+        const gmail = encodeURI(result.additionalUserInfo.profile.name);
+        console.log(gmail);
+        fetch(`/account/login/${gmail}/${gmail}`)
+        .then(response => response.text())
+        .then(async (text) => {
+            try {
+                const data = JSON.parse(text);
+                props.setStatus('');
+                props.setShow(false);
+                props.setUser(data);
+                console.log('JSON:', data);
+            } catch(err) {
+              console.log(err);
+                props.setStatus(text)
+                console.log('err:', text);
+                
+                const url = `/account/create/${gmail}/${gmail}/${gmail}`;
+                await fetch(url);
+                const res = await fetch(`/account/login/${gmail}/${gmail}`)
+                const text = await res.text();
+                const data = JSON.parse(text);
+                      props.setStatus('');
+                      props.setShow(false);
+                      props.setUser(data);
+            }
+        })
+       
+      })
+      .catch(function (error) {
+        console.log(error.code);
+        console.log(error.message);
+      });
+  }
+  
   return (<>
 
     Name<br/>
@@ -65,6 +127,9 @@ function CreateForm(props){
     <button type="submit" 
       className="btn btn-light" 
       onClick={handle}>Create Account</button>
+       <br/>
+       <br/>
+    <button type="submit" className="btn btn-outline-light" onClick={handleGoogle}>Signup with Google</button>
 
   </>);
 }

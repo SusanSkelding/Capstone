@@ -1,8 +1,8 @@
 
-function Login(){
+function Login(props){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');    
-  const [name, setName] = React.useState("");
+  //const [name, setName] = React.useState("");
 
   return (
     <Card
@@ -12,8 +12,10 @@ function Login(){
       status={status}
       body={show ? 
         
-        <LoginForm setShow={setShow} setStatus={setStatus}/> :
-        <checkCredentials setShow={setShow} setStatus={setStatus}/>
+
+        
+        <LoginForm setUser={props.setUser} setShow={setShow} setStatus={setStatus}/> :
+        <LoginMsg setShow={setShow} setStatus={setStatus}/>
         
       
       }
@@ -37,49 +39,92 @@ function LoginForm(props){
   const [password, setPassword] = React.useState('');
 
   function handle(){
-    fetch(`/account/login/${email}/${password}`)
-    .then(response => response.text())
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            props.setStatus('');
-            props.setShow(false);
-            console.log('JSON:', data);
-        } catch(err) {
-            props.setStatus(text)
-            console.log('err:', text);
-        }
+    //fetch(`/account/login/${email}/${password}`)
+    //.then(response => response.text())
+    //.then(text => {
+     //   try {
+      //      const data = JSON.parse(text);
+      //      props.setStatus('');
+      //      props.setShow(false);
+      //      console.log('JSON:', data);
+     //   } catch(err) {
+     //       props.setStatus(text)
+     //       console.log('err:', text);
+    //    }
+  //  });
+
+
+
+  const auth = firebase.auth();
+  const promise = auth.signInWithEmailAndPassword(
+    email,
+    password
+  );
+  firebase.auth().onAuthStateChanged((firebaseUser) => {
+    if (firebaseUser) {
+      console.log(firebaseUser);
+      fetch(`/account/login/${email}/${password}`)
+  .then(response => response.text())
+  .then(text => {
+      try {
+          const data = JSON.parse(text);
+          props.setStatus('');
+          props.setShow(false);
+          props.setUser(data);
+          console.log('JSON:', data);
+      } catch(err) {
+          props.setStatus(text)
+          console.log('err:', text);
+      }
+  });
+     //success
+    } else {
+     //error codes
+    }
+  });
+  promise.catch((e) => console.log(e.message));
+}
+
+function handleGoogle() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(function (result) {
+      console.log(result);
+      const gmail = encodeURI(result.additionalUserInfo.profile.name);
+      console.log(gmail);
+      fetch(`/account/login/${gmail}/${gmail}`)
+      .then(response => response.text())
+      .then(async (text) => {
+          try {
+              const data = JSON.parse(text);
+              props.setStatus('');
+              props.setShow(false);
+              props.setUser(data);
+              console.log('JSON:', data);
+          } catch(err) {
+            console.log(err);
+              props.setStatus(text)
+              console.log('err:', text);
+              
+              const url = `/account/create/${gmail}/${gmail}/${gmail}`;
+              await fetch(url);
+              const res = await fetch(`/account/login/${gmail}/${gmail}`)
+              const text = await res.text();
+              const data = JSON.parse(text);
+                    props.setStatus('');
+                    props.setShow(false);
+                    props.setUser(data);
+          }
+      })
+     
+    })
+    .catch(function (error) {
+      console.log(error.code);
+      console.log(error.message);
     });
-
-    
-  }
-
-  function checkCredentials() {
-
-    fetch(`/account/checkUser/${email}/${password}`)
-    .then(response => response.text())
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            props.setStatus(text);
-            props.setShow(false);
-            setBalance(user.balance);
-            console.log('JSON:', data);
-        } catch(err) {
-            props.setStatus(text)
-            console.log('err:', text);
-        }
-    });
-
-
-
-  }
-  function clearForm() {
-    setEmail('');
-    setPassword('');
-    setShow(true);
-  }
-  
+}
 
   return (<>
 
@@ -97,8 +142,10 @@ function LoginForm(props){
       value={password} 
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
 
-    <button type="submit" className="btn btn-light"  onClick={checkCredentials}>Login</button>
-    
+    <button type="submit" className="btn btn-light"  onClick={handle}>Login</button>
+    <br/>
+    <br/>
+    <button type="submit" className="btn btn-light" onClick={handleGoogle}>Google Login</button>
    
   </>);
 }

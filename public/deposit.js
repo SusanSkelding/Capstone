@@ -1,6 +1,8 @@
-function Deposit(){
+function Deposit(props){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');  
+  const [deposit, setDeposit] = React.useState('');
+  const [balance, setBalance] = React.useState("");
 
   return (
     <Card
@@ -8,8 +10,16 @@ function Deposit(){
       header="Deposit"
       status={status}
       body={show ? 
-        <DepositForm setShow={setShow} setStatus={setStatus}/> :
-        <DepositMsg setShow={setShow} setStatus={setStatus}/>}
+        (
+          <><img
+            src="deposit.png"
+            className="card-img-top"
+            alt="Responsive image"
+            width="22%" /><>
+              <DepositForm user={props.user} setShow={setShow} setStatus={setStatus} setDeposit={setDeposit} /> :
+            </></> ):
+       <> <DepositMsg setShow={setShow} setStatus={setStatus}/>
+    </> }
     />
   )
 }
@@ -29,11 +39,10 @@ function DepositMsg(props){
 } 
 
 function DepositForm(props){
-  const [email, setEmail]   = React.useState('');
-  const [amount, setAmount] = React.useState('');
+  const [deposit, setDeposit] = React.useState('');
 
-  function handle(){
-    fetch(`/account/update/${email}/${amount}`)
+  function makeDeposit(){
+    fetch(`/account/update/${props.user.email}/${deposit}`)
     .then(response => response.text())
     .then(text => {
         try {
@@ -50,21 +59,21 @@ function DepositForm(props){
 
   return(<>
 
-    Email<br/>
-    <input type="input" 
-      className="form-control" 
-      placeholder="Enter email" 
-      value={email} onChange={e => setEmail(e.currentTarget.value)}/><br/>
+<br/>
+User
+    <p>{props.user.name}</p>
       
-    Amount<br/>
+   Deposit Amount:<br/>
     <input type="number" 
       className="form-control" 
-      placeholder="Enter amount" 
-      value={amount} onChange={e => setAmount(e.currentTarget.value)}/><br/>
+      placeholder="$0.00" 
+      value={deposit} onChange={e => setDeposit(e.currentTarget.value)}/><br/>
 
     <button type="submit" 
-      className="btn btn-light" 
-      onClick={handle}>Deposit</button>
+      className="btn btn-outline-light"
+      onClick={makeDeposit}>Deposit</button>
+      <br/>
+      
 
   </>);
 }

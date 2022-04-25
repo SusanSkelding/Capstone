@@ -1,20 +1,29 @@
 function Spa() {
+  const [user, setUser] = React.useState({});
   return (
-    <HashRouter>
+    <HashRouter> 
       <div>
-        <NavBar/>        
-        <UserContext.Provider value={{users:[{name:'abel',email:'abel@mit.edu',password:'secret',balance:100}]}}>
+        <NavBar setUser={setUser} user={user}/>        
+        {/*<UserContext.Provider value={{users:[{name:'abel',email:'abel@mit.edu',password:'secret',balance:100}]}}>*/}
           <div className="container" style={{padding: "20px"}}>
             <Route path="/" exact component={Home} />
             <Route path="/CreateAccount/" component={CreateAccount} />
-            <Route path="/login/" component={Login} />
-            <Route path="/deposit/" component={Deposit} />
-            <Route path="/withdraw/" component={Withdraw} />
+            <Route path="/login/" >
+              <Login setUser={setUser}/>
+            </Route>
+            <Route path="/deposit/" >
+              <Deposit user={user}/>
+            </Route>
+            <Route path="/withdraw/" >
+              <Withdraw user={user}/>
+            </Route>
             {/* <Route path="/transactions/" component={Transactions} /> */}
-            <Route path="/balance/" component={Balance} />
+            <Route path="/balance/" >
+              <Balance user={user}/>
+            </Route>
             <Route path="/alldata/" component={AllData} />
           </div>
-        </UserContext.Provider>
+       {/* </UserContext.Provider>*/}
       </div>
     </HashRouter>
   );
