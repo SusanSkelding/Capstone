@@ -56,46 +56,8 @@ function CreateForm(props){
     promise.catch((e) => console.log(e.message));
     props.setShow(false);
   }    
-  function handleGoogle() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function (result) {
-        console.log(result);
-        const gmail = encodeURI(result.additionalUserInfo.profile.name);
-        console.log(gmail);
-        fetch(`/account/login/${gmail}/${gmail}`)
-        .then(response => response.text())
-        .then(async (text) => {
-            try {
-                const data = JSON.parse(text);
-                props.setStatus('');
-                props.setShow(false);
-                props.setUser(data);
-                console.log('JSON:', data);
-            } catch(err) {
-              console.log(err);
-                props.setStatus(text)
-                console.log('err:', text);
-                
-                const url = `/account/create/${gmail}/${gmail}/${gmail}`;
-                await fetch(url);
-                const res = await fetch(`/account/login/${gmail}/${gmail}`)
-                const text = await res.text();
-                const data = JSON.parse(text);
-                      props.setStatus('');
-                      props.setShow(false);
-                      props.setUser(data);
-            }
-        })
-       
-      })
-      .catch(function (error) {
-        console.log(error.code);
-        console.log(error.message);
-      });
-  }
+  
+    
   
   return (<>
 
