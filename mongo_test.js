@@ -1,6 +1,6 @@
 
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://susan:Nerkbrern@capstone.0jluh.mongodb.net/capstone?retryWrites=true&w=majority';
  
 // connect to mongo
 MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
