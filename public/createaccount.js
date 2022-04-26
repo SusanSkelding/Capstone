@@ -87,7 +87,7 @@ function CreateForm(props){
       onClick={handle}>Create Account</button>
        <br/>
        <br/>
-    <button type="submit" className="btn btn-outline-light" onClick={handleGoogle}>Signup with Google</button>
+    
 
   </>);
 }
