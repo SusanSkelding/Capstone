@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "MONGODB_URI=http://localhost:8080 node index.js"
+    "start": "node index.js"
   },
   "author": "abel@mit.edu",
   "license": "MIT",
