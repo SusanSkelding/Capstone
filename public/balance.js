@@ -72,7 +72,7 @@ function BalanceForm(props) {
 
   return (
     <>
-     Please Login To Check Balance
+     Balance
       <br />
       <p>{props.user.email}</p>
       <button type='submit' className="btn btn-outline-light" onClick={handle}>
