@@ -17,13 +17,11 @@ function Spa() {
             <Route path="/withdraw/" >
               <Withdraw user={user}/>
             </Route>
-            {/* <Route path="/transactions/" component={Transactions} /> */}
             <Route path="/balance/" >
               <Balance user={user}/>
             </Route>
             <Route path="/alldata/" component={AllData} />
           </div>
-       {/* </UserContext.Provider>*/}
       </div>
     </HashRouter>
   );

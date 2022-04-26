@@ -26,10 +26,9 @@ function LogOut(props){
   }
   
   function LogOutForm(props){
-   // const [email, setEmail]       = React.useState('');
-   // const [password, setPassword] = React.useState('');
   
-    function handle(){
+  
+function handle(){
       firebase.auth().signOut();
       fetch(`/account/logOut`)
       .then(response => response.text())
@@ -49,22 +48,8 @@ function LogOut(props){
   
   
     return (<>
-  
-     {/*} Email<br/>
-      <input type="input" 
-        className="form-control" 
-        placeholder="Enter email" 
-        value={email} 
-        onChange={e => setEmail(e.currentTarget.value)}/><br/>
-  
-      Password<br/>
-      <input type="password" 
-        className="form-control" 
-        placeholder="Enter password" 
-        value={password} 
-        onChange={e => setPassword(e.currentTarget.value)}/><br/>
-  
-    <button type="submit" className="btn btn-light" onClick={handle}>Login</button>*/}
+
       <button type="submit" className="btn btn-light" onClick={handle}>Login Out</button>
+
     </>);
   }

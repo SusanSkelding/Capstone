@@ -2,7 +2,7 @@
 function Login(props){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');    
-  //const [name, setName] = React.useState("");
+ 
 
   return (
     <Card
@@ -38,23 +38,7 @@ function LoginForm(props){
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  function handle(){
-    //fetch(`/account/login/${email}/${password}`)
-    //.then(response => response.text())
-    //.then(text => {
-     //   try {
-      //      const data = JSON.parse(text);
-      //      props.setStatus('');
-      //      props.setShow(false);
-      //      console.log('JSON:', data);
-     //   } catch(err) {
-     //       props.setStatus(text)
-     //       console.log('err:', text);
-    //    }
-  //  });
-
-
-
+function handle(){
   const auth = firebase.auth();
   const promise = auth.signInWithEmailAndPassword(
     email,
