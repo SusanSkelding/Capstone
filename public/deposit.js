@@ -11,11 +11,7 @@ function Deposit(props){
       status={status}
       body={show ? 
         (
-          <><img
-            src="deposit.png"
-            className="card-img-top"
-            alt="Responsive image"
-            width="22%" /><>
+          <><>
               <DepositForm user={props.user} setShow={setShow} setStatus={setStatus} setDeposit={setDeposit} /> :
             </></> ):
        <> <DepositMsg setShow={setShow} setStatus={setStatus}/>

@@ -9,11 +9,7 @@ function CreateAccount(){
       status={status}
       body={show ? 
         <><div className="text-left">
-          <img
-            src="coin.svg"
-            className="img-fluid right"
-            alt="Responsive image"
-            width="22%" />
+          
           <br />
           <br />
         </div><CreateForm setShow={setShow} /></> : 

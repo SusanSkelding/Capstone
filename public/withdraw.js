@@ -12,11 +12,7 @@ function Withdraw(props){
 		body={
 		  show ? (
       
-        <><img
-          src="withdraw.png"
-          className="card-img-top"
-          alt="Responsive image"
-          width="22%" /><>
+        <><>
             <WithdrawForm user={props.user} setShow={setShow} setStatus={setStatus} setWithdraw={setWithdraw} /> :
 
           </></> ):
